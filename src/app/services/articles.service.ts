@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
-export class PostsService {
+export class ArticlesService {
 
   constructor(private http: Http) { }
 
-  // get all posts from the api
-  getAllPosts(): Promise<any> {
-    return this.http.get('/api/posts')
+  // get all articles from the api
+  getAllArticles(): Promise<any[]> {
+    return this.http.get('/api/articles')
     .toPromise()
-    .then(res => res.json().data)
+    .then(res => res.json() as any[])
     .catch(this.handleError);
   }
 

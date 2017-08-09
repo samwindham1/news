@@ -4,27 +4,22 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
-import { PostsService } from './posts.service';
+import { ArticlesService } from './services/articles.service';
 
 import { AppComponent } from './app.component';
-import { PostsComponent } from './posts/posts.component';
+import { ArticlesComponent } from './articles/articles.component';
 
 const ROUTES = [
   {
     path: '',
-    redirectTo: 'posts',
-    pathMatch: 'full'
-  },
-  {
-    path: 'posts',
-    component: PostsComponent
+    component: ArticlesComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    ArticlesComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +27,9 @@ const ROUTES = [
     HttpModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [PostsService],
+  providers: [
+    ArticlesService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
