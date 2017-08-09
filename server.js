@@ -18,6 +18,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 // Set API routes
 app.use('/api', api);
+// Handle API errors
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+
+    res.send({
+        message: err.message
+    });
+});
 
 // Catch all other routes and return index file
 app.get('*', (req, res) => {

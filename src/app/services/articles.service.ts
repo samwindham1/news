@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/toPromise';
+import { Http, Response, Headers, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+
+// import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ArticlesService {
 
   constructor(private http: Http) { }
 
+  private articlesUrl = '/api/articles';
   // get all articles from the api
-  getAllArticles(): Promise<any[]> {
-    return this.http.get('/api/articles')
-    .toPromise()
-    .then(res => res.json() as any[])
-    .catch(this.handleError);
-  }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An Error occurred', error); // demo purposes
-    return Promise.reject(error.message || error);
+  getAllArticles(): any {
+    return this.http.get(this.articlesUrl)
+    .map((res:Response) => res.json())
+    .catch((error:any) => Observable.throw(error.json().error || 'Internal Server Error'));
   }
 
 }

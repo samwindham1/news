@@ -16,9 +16,11 @@ export class ArticlesComponent implements OnInit {
   ngOnInit() {
     // retrieve articles from the API
     this.articlesService.getAllArticles()
-    .then(articles => {
-      this.articles = articles;
-      console.log(articles);
-    });
+    .subscribe(
+      articles => {
+        this.articles = articles;
+      },
+      error => {}
+    );
   }
 }
